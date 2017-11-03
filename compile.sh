@@ -2,6 +2,7 @@
 GCC="i686-elf-gcc"
 AS="i686-elf-as"
 LD="i686-elf-ld"
+NASM="nasm"
 
 echo "$(tput setaf 5)Assembling the Entry Point (kernel.asm) $(tput sgr0)"
 # Assemble the entry point (kernel.asm)
@@ -17,7 +18,7 @@ echo "$(tput setaf 5)Assembling the IDT $(tput sgr0)"
 ${AS} src/port.s -o build/port.o
 
 echo "$(tput setaf 5)Assembling the Real Mode $(tput sgr0)"
-nasm -f elf32 src/realmode.s -o build/realmode.o
+${NASM} -f elf32 src/realmode.s -o build/realmode.o
 
 echo "$(tput setaf 5)Compiling the kernel $(tput sgr0)"
 # Compile the kernel.c

@@ -7,4 +7,4 @@ run :
 
 clean :
 	# Deleting all build files
-	rm -rf build/kernel build/entry_point_asm.o build/kernel_c.o build/disk.img
+	rm -rf build/kernel build/*.o build/*.img

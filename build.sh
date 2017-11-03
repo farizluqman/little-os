@@ -58,7 +58,7 @@ echo "$(tput setaf 3)Sleeping for 2 seconds... $(tput sgr0)"
 sleep 2
 
 echo "$(tput setaf 3)Unmount and remove the mount point... $(tput sgr0)"
-# remove this if you need to modify something
+# remove this if you need to modify something inside the disk image
 sudo umount ${MOUNT_DIR}
 sudo partx -d ${outlo}p1
 sudo losetup -d ${outlo}
