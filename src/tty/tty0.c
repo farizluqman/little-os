@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "../libs/tty.c"
+#include "../stdlib/tty.c"
 
 // function declarations
 void tty0(void);
@@ -13,9 +13,9 @@ void tty0(void);
 void tty0(void) {
   console_writestring("\nPress ENTER to login to tty0...\n");
 
+  // do we loop here? I don't know, time will tell
   while (1) {
     char c = get_ascii_char();
-    console_putchar((char*) c);
     refresh_tty(c);
   }
 }

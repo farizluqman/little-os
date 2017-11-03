@@ -1,7 +1,7 @@
 run :
 	chmod +x compile.sh
 	chmod +x build.sh
-
+	chmod +x src/modules/mod_asm.lnk
 	./compile.sh
 	./build.sh
 

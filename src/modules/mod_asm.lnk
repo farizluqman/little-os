@@ -1,0 +1,12 @@
+#!/bin/bash
+
+## Link modules assembly file here
+MOD_ASM_LINKS=(
+  'modules/iobus/port.s'
+  'modules/cpu/idt.s'
+  'modules/cpu/gdt.s'
+)
+
+MOD_NASM_LINKS=(
+  'modules/cpu/realmode.s'
+)

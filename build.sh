@@ -1,7 +1,7 @@
 # /bin/bash
 BUILD_DIR="build"
 MOUNT_DIR="/mnt/out0"
-BOOTLOADER_DIR="bootloader"
+BOOTLOADER_DIR="src/boot"
 
 DISK_NAME="disk.img"
 DISK_IMG_SIZE="100MB"
