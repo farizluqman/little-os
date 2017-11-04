@@ -154,7 +154,7 @@ $ sudo mkdir build
 $ sudo make
 ```
 
-When you see this message ```Everything is done now with success! ``` it means the build is successful. If you have any issue building little-os then let me know [by creating an issue!](https://github.com/farizluqman/little-os/issues)
+When you see this message ```Everything is done now with success! ``` it means the build is successful. If you have any issue building little-os then let me know [by creating an issue](https://github.com/farizluqman/little-os/issues)
 
 ## Boot the disk image
 I used Qemu to start the disk image, you can do so by issuing this command on your host machine, in the /home/vagrant/environment directory: 
@@ -171,4 +171,4 @@ or
 sudo make emulate
 ```
 
-API documentations will be on the [wiki page later!](https://github.com/farizluqman/little-os/wiki). If you found any problem DO NOT HESITATE to [create an issue!](https://github.com/farizluqman/little-os/issues)
+API documentations will be on the [wiki page later](https://github.com/farizluqman/little-os/wiki). If you found any problem DO NOT HESITATE to [create an issue](https://github.com/farizluqman/little-os/issues)
