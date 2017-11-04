@@ -52,26 +52,12 @@ $ vagrant ssh
 ```
 
 ### A little bit tuning for the Vagrant box
-When you have SSH'ed into the box, you'll be able to install packages from Ubuntu just like you do with a real installed Ubuntu. And you can also read to your host machine or vice versa. Just need a little tuning on ~/.bashrc
-
 Make the environment directory, this will be symlinked with the Vagrant box's share path to your current vagrant dev environment on your host
 ```bash
 mkdir environment
 ```
 
-```bash
-$ nano ~/.bashrc
-```
-
-Scroll to the bottom and add
-
-```bash
-sudo mount -t vboxsf vagrant environment/
-# set toolchain's path everytime
-cd ~/environment/barebones-toolchain/
-. ./setenv.sh
-cd ..
-```
+When you have SSH'ed into the box, you'll be able to install packages from Ubuntu just like you do with a real installed Ubuntu. And you can also read to your host machine or vice versa. 
 
 This will be useful if you want to transfer the file into the box or into your host machine. We'll always do this, so you'll want to ensure the mountpoint is working correctly:
 
@@ -97,6 +83,22 @@ tmpfs                         497M     0  497M   0% /sys/fs/cgroup
 tmpfs                         100M     0  100M   0% /run/user/1000
 vagrant                       234G  223G   12G  96% /home/vagrant/environment <<< THIS IS IT
 vagrant@vagrant:~/environment$ 
+```
+
+Just need a little tuning on ~/.bashrc so you won't need to mount it everytime
+
+```bash
+$ nano ~/.bashrc
+```
+
+Scroll to the bottom and add
+
+```bash
+sudo mount -t vboxsf vagrant environment/
+# set toolchain's path everytime
+cd ~/environment/barebones-toolchain/
+. ./setenv.sh
+cd ..
 ```
 
 cd to /home/vagrant/environment and do your works here
@@ -135,7 +137,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ### Install nasm
 We need nasm to build some assembly files (like common.s) 
 ```bash
-sudo apt install nasm
+$ sudo apt install nasm
 ```
 
 ## Getting little-os to Work
@@ -146,10 +148,10 @@ You can either clone or just download the zip file and extract it here.
 
 In the /home/vagrant/environment directory, make the build directory (for the first time only)
 ```bash
-sudo git clone https://github.com/farizluqman/little-os.git
-cd little-os
-sudo mkdir build
-sudo make
+$ sudo git clone https://github.com/farizluqman/little-os.git
+$ cd little-os
+$ sudo mkdir build
+$ sudo make
 ```
 
 When you see this message ```Everything is done now with success! ``` it means the build is successful. If you have any issue building little-os then let me know [by creating an issue!](https://github.com/farizluqman/little-os/issues)
@@ -163,4 +165,10 @@ I used Qemu to start the disk image, you can do so by issuing this command on yo
 $ qemu-system-i386 build/disk.img
 ```
 
-API documentations will be on the [wiki page later!](https://github.com/farizluqman/little-os/wiki)
+or
+
+```bash
+sudo make emulate
+```
+
+API documentations will be on the [wiki page later!](https://github.com/farizluqman/little-os/wiki). If you found any problem DO NOT HESITATE to [create an issue!](https://github.com/farizluqman/little-os/issues)
