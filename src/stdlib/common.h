@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 void *memset(void *p, int c, size_t count);
-void *memcpy(void *dest, const void *src, size_t n);
+// void *memcpy(void *dest, const void *src, size_t n);
 extern void fastcp(char *dest, char *src, uint32_t count);
 
 int k_toupper(int c);
@@ -19,6 +19,6 @@ int strcmp(const char *s1, const char *s2);
 int coerce_int(char *s, uint32_t *val);
 uint8_t hex_char(uint8_t byte);
 
-void PANIC(char *err);
+void PANIC(char *err, ...);
 
 #endif

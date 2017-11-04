@@ -76,6 +76,25 @@ void console_putchar(char c) {
     update_cursor(console_column, console_row);
 }
 
+
+
+void console_write_dec(uint32_t d)
+{
+    char buff[13];
+    char *x = itos(d, buff, 13);
+    console_writestring(x);
+}
+
+void console_write_hex(uint32_t d)
+{
+    console_writestring("0x");
+    for(int i = 28; i >= 0; i-=4)
+    {
+        console_putchar(hex_char(d>>i));
+    }
+
+}
+
 // gives the linear index into the VGA buffer corresponding to a certain (i, j)
 // position
 static inline size_t index(size_t i, size_t j) {
@@ -99,6 +118,16 @@ void console_scrolldown(void) {
 // puts a char with the given color at the specified terminal location
 void console_putentryat(char c, uint8_t color, size_t i, size_t j) {
     console_buffer[index(i, j)] = make_vgaentry(c, color);
+}
+
+void console_putstringat(const char *data, uint8_t color, size_t i, size_t j) {
+  while (*data) {
+    if(j > 80){
+      j = 1;
+      i++;
+    }
+    console_putentryat(*data++, color, i, j++);
+  }
 }
 
 // sets the color of the text
@@ -142,4 +171,9 @@ void update_cursor(int x, int y)
 static void clear_screen()
 {
     console_initialize();
+}
+
+static console_set_status(char *status)
+{
+
 }

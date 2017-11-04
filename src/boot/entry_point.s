@@ -22,9 +22,8 @@
 # then allocating 16384 bytes for it, and finally creating a symbol at the top.
 .section .bootstrap_stack, "aw", @nobits
 stack_bottom:
-.skip 32768         #32 KiB
+.skip 16384         #16 KiB
 stack_top:
-
 
 .section .text
 .global _start
@@ -58,6 +57,7 @@ _start:
     # assembly file, so we'll create a kernel.c file in a moment. In that file,
     # we'll create a C entry point called kernel_main and call it here.
     sti
+    pushl %eax
     pushl %ebx       # EBX contains a pointer to the multiboot info structure.
     call kernel_main
 

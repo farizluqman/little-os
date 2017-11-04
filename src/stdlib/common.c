@@ -11,18 +11,18 @@ void *memset(void *p, int c, size_t count)
     return p;
 }
 
-void *memcpy(void *dest, const void *src, size_t n) {
-
-    char *cdest = dest;
-    const char *csrc = src;
-
-    size_t i;
-    for(i = 0; i < n; i++) {
-        cdest[i] = csrc[i];
-    }
-
-    return dest;
-}
+// void *memcpy(void *dest, const void *src, size_t n) {
+//
+//     char *cdest = dest;
+//     const char *csrc = src;
+//
+//     size_t i;
+//     for(i = 0; i < n; i++) {
+//         cdest[i] = csrc[i];
+//     }
+//
+//     return dest;
+// }
 
 int k_toupper(int c) {
     if(c >= 97 && c <= 122) {
@@ -120,10 +120,8 @@ uint8_t hex_char(uint8_t byte)
     }
     return 0;
 }
-// 
-// void PANIC(char *err) {
-//     //terminal_set_cursor(0, 1);
-//     //terminal_setcolor(make_color(COLOR_DARK_GREY, COLOR_BLACK));
-//     //terminal_settextcolor(make_color(COLOR_RED, COLOR_BLACK));
-//     //printf("PANIC: %s", err);
-// }
+
+void PANIC(char *err, ...) {
+    printf(err);
+    while (1);
+}

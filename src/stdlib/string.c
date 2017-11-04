@@ -22,6 +22,19 @@ char* itoa(int i){
  return itoa_f(i, "");
 }
 
+int atoi(char *str)
+{
+    int res = 0; // Initialize result
+
+    // Iterate through all characters of input string and
+    // update result
+    for (int i = 0; str[i] != '\0'; ++i)
+        res = res*10 + str[i] - '0';
+
+    // return result.
+    return res;
+}
+
 // returns the length of a null terminated string
 size_t strlen(const char *str) {
     size_t len = 0;

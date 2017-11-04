@@ -2,11 +2,13 @@
 GCC="i686-elf-gcc"
 
 # Set GCC flag to -I src to have the "Namespacing" style in C++ or Java
-GCC_FLAGS="-I src"
+GCC_FLAGS="-m32 -I src "
 AS="i686-elf-as"
 LD="i686-elf-ld"
+
 NASM="nasm"
 NASM_FLAGS="-f elf32"
+
 MODULES_DIR="modules"
 
 echo "$(tput setaf 5)Assembling boot loader (the entry_point)... $(tput sgr0)"
@@ -43,6 +45,8 @@ do
   ${NASM} ${NASM_FLAGS} src/${i} -o build/${file}.o
 done
 
+${NASM} ${NASM_FLAGS} src/stdlib/common.s -o build/common.o
+
 OBJS_STRING=""
 
 ## now loop through the above array
@@ -52,10 +56,12 @@ do
 done
 
 echo "$(tput setaf 5)Compiling the kernel $(tput sgr0)"
+
 # Compile the kernel.c
-${GCC} ${GCC_FLAGS} -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector -c src/kernel/kernel.c -o build/kernel_c.o
+${GCC} ${GCC_FLAGS} -std=gnu99 -ffreestanding -O2 -Wall -Wextra -fno-stack-protector -c src/kernel.c -o build/kernel.o
 
 echo "$(tput setaf 5)Linking entry point with the kernel and all object files $(tput sgr0)"
 
 # Link the entry point with the kernel
-${LD} -m elf_i386 -T src/link.ld -o build/kernel build/entry_point.o build/kernel_c.o ${OBJS_STRING}
+# build/entry_point.o
+${LD} -m elf_i386 -T src/link.ld -o build/kernel build/entry_point.o build/kernel.o build/common.o ${OBJS_STRING}

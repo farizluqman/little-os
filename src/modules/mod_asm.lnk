@@ -1,12 +1,17 @@
 #!/bin/bash
 
+# Modules
+# -------
+# The concept is not like the modules in Linux, but rather a set of "things"
+# contributing to the kernel functionality
+
 ## Link modules assembly file here
 MOD_ASM_LINKS=(
-  'modules/iobus/port.s'
-  'modules/cpu/idt.s'
-  'modules/cpu/gdt.s'
+  'modules/portio/port.s'
+  'modules/desc_tables/idt.s'
+  'modules/desc_tables/gdt.s'
 )
 
 MOD_NASM_LINKS=(
-  'modules/cpu/realmode.s'
+  #'modules/bios/realmode.s'
 )

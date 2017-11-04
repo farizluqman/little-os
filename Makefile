@@ -8,3 +8,7 @@ run :
 clean :
 	# Deleting all build files
 	rm -rf build/kernel build/*.o build/*.img
+
+emulate :
+	# Run with QEMU
+	qemu-system-i386 build/disk.img
