@@ -43,9 +43,9 @@ save the file and then type
 $ vagrant up
 ```
 
-If you have problem here or it is taking too long, just open Virtualbox app, double click on the running virtual machine named xxx_default_xxxx (name varies), right click at the network icon and click "Connect Network Adapter". after few second it should be up and you can quite the virtual machine and let it "Continue running on the background"
+You'll see the installation of the dev environment, or lets call it box from now on. If you have problem here or it is taking too long, just open Virtualbox app, double click on the running virtual machine named xxx_default_xxxx (name varies), and the virtual machine window will pop out. right click at the network icon at the bottom and click "Connect Network Adapter". after few second it should be up and you can quit the virtual machine and let it "Continue running on the background".
 
-You'll see the installation of the dev environment, or lets call it box from now on. Later, when the job's done, you can SSH into the box you've just created like this
+Later, when the job's done, you can SSH into the box you've just created like this
 
 ```bash
 $ vagrant ssh
@@ -67,6 +67,10 @@ Scroll to the bottom and add
 
 ```bash
 sudo mount -t vboxsf vagrant environment/
+# set toolchain's path everytime
+cd ~/environment/barebones-toolchain/
+. ./setenv.sh
+cd ..
 ```
 
 This will be useful if you want to transfer the file into the box or into your host machine. We'll always do this, so you'll want to ensure the mountpoint is working correctly:
@@ -104,6 +108,8 @@ $ sudo git clone https://github.com/rm-hull/barebones-toolchain.git
 $ cd barebones-toolchain
 $ . ./setenv.sh
 ```
+
+This has been added to your ~/.bashrc file previously so you wont need to do this everytime
 
 Check if it works
 ```
