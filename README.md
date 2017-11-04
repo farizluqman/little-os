@@ -52,6 +52,11 @@ $ vagrant ssh
 ### A little bit tuning for the Vagrant box
 When you have SSH'ed into the box, you'll be able to install packages from Ubuntu just like you do with a real installed Ubuntu. And you can also read to your host machine or vice versa. Just need a little tuning on ~/.bashrc
 
+Make the environment directory, this will be symlinked with the Vagrant box's share path to your current vagrant dev environment on your host
+```bash
+mkdir environment
+```
+
 ```bash
 $ nano ~/.bashrc
 ```
