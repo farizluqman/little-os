@@ -100,7 +100,7 @@ cd to /home/vagrant/environment and do your works here
 ### Get barebones-toolchain to get GCC cross compiler
 The cross compiler contains everything we need to compile/assemble our kernel, modules and bootloaders. In the /home/vagrant/environment directory:
 ```bash
-$ git clone https://github.com/rm-hull/barebones-toolchain.git
+$ sudo git clone https://github.com/rm-hull/barebones-toolchain.git
 $ cd barebones-toolchain
 $ . ./setenv.sh
 ```
@@ -134,7 +134,7 @@ You can either clone or just download the zip file and extract it here.
 
 In the /home/vagrant/environment directory:
 ```bash
-git clone https://github.com/farizluqman/little-os.git
+sudo git clone https://github.com/farizluqman/little-os.git
 cd little-os
 sudo make
 ```
