@@ -126,16 +126,23 @@ This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ```
 
+### Install nasm
+We need nasm to build some assembly files (like common.s) 
+```bash
+sudo apt install nasm
+```
+
 ## Getting little-os to Work
 Now we will build Little OS into build/boot.img, a bootable disk image file powered by Grub2
 
 ### Clone little-os to the environment directory
 You can either clone or just download the zip file and extract it here.
 
-In the /home/vagrant/environment directory:
+In the /home/vagrant/environment directory, make the build directory (for the first time only)
 ```bash
 sudo git clone https://github.com/farizluqman/little-os.git
 cd little-os
+sudo mkdir build
 sudo make
 ```
 
