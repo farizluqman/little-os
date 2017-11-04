@@ -43,6 +43,8 @@ save the file and then type
 $ vagrant up
 ```
 
+If you have problem here or it is taking too long, just open Virtualbox app, double click on the running virtual machine named xxx_default_xxxx (name varies), right click at the network icon and click "Connect Network Adapter". after few second it should be up and you can quite the virtual machine and let it "Continue running on the background"
+
 You'll see the installation of the dev environment, or lets call it box from now on. Later, when the job's done, you can SSH into the box you've just created like this
 
 ```bash
