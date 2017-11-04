@@ -57,7 +57,7 @@ _start:
     # assembly file, so we'll create a kernel.c file in a moment. In that file,
     # we'll create a C entry point called kernel_main and call it here.
     sti
-    pushl %eax
+    pushl %eax       # EAX contains magic number from Grub boot loader
     pushl %ebx       # EBX contains a pointer to the multiboot info structure.
     call kernel_main
 

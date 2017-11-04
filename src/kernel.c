@@ -45,8 +45,8 @@ extern "C" /* Use C linkage for kernel_main. */
 extern void pause();
 // extern char _binary_f32_disk_start;
 //
-// extern uint32_t kernel_end;
-// extern uint32_t kernel_base;
+extern uint32_t kernel_end;
+extern uint32_t kernel_base;
 
 // function declarations
 void kernel_main(struct multiboot_info *mi, unsigned int magic);
@@ -74,11 +74,11 @@ void kernel_main(struct multiboot_info *mbt, unsigned int magic) {
   		return;
   	}
 
-    //printf("Kernel base is %x, end is %x\n", &kernel_base, &kernel_end);
+    printf("Kernel base is %x, end is %x\n", &kernel_base, &kernel_end);
 
     console_writestring("\n");
 
-    //mm_init(&kernel_end);
+    mm_init(&kernel_end);
 
     // Initialize the GDT
     console_writestring("Initializing GDT...\n");

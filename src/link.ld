@@ -1,11 +1,15 @@
 /* The bootloader will look at this image and start execution at the symbol
    designated as the entry point. */
-ENTRY(start)
+ENTRY(_start)
 
 /* Tell where the various sections of the object files will be put in the final
    kernel image. */
 SECTIONS
 {
+    . = 1M;
+
+    kernel_base = .;
+
     /* First put the multiboot header, as it is required to be put very early
        early in the image or the bootloader won't recognize the file format.
        Next we'll put the .text section. */
@@ -41,4 +45,6 @@ SECTIONS
     {
         *(.kend)
     }
+
+    kernel_end = .;
 }
