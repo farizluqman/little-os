@@ -2,7 +2,7 @@
 This is to discover the awesomeness (tediousness) of developing your own OS
 
 ![Grub 2 Bootloader](https://i.imgur.com/nh1E1Z2.png)
-![The boot message and tty0](https://i.imgur.com/t15qxCl.png)
+![The boot message and tty0](https://i.imgur.com/31qC5R3.png)
 https://imgur.com/a/lG0HS
 
 ## Why Little OS?
