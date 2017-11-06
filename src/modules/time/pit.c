@@ -44,14 +44,15 @@ static void timer_callback(registers_t regs)
 
     char* outstring;
     sprintf(outstring, "Uptime: %02dm, %02ds", min, sec_mod);
-    console_putstringat(outstring, 3, 0, 63);
+    console_writewithcolorat(outstring, COLOR_LIGHT_BROWN, 0, 63);
   }
 }
 
 void init_timer(uint32_t frequency)
 {
-    printf("Initializing PIT timer\n");
     register_interrupt_handler(IRQ0, &timer_callback);
+
+		console_writedone();
 
     //normal_color = make_color(COLOR_WHITE, COLOR_BLACK);
 
@@ -67,6 +68,7 @@ void init_timer(uint32_t frequency)
       0x36 == 0011 0110 == 00       11 (lobyte/hibyte) 011 (square Wave) 0 (16-bit bin
       )
     */
+		printf("[PIT] Initializing PIT timer ... ");
     outb(PIT_COMMAND, 0x36);
 
     //Chop freq up into bytes and send to data0 port
@@ -75,4 +77,7 @@ void init_timer(uint32_t frequency)
 
     outb(PIT_DATA0, low);
     outb(PIT_DATA0, high);
+
+		console_writedone();
+
 }

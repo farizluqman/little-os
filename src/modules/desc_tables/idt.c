@@ -147,6 +147,8 @@ void init_idt()
     idt_set_gate(47, (uint32_t)irq15, 0x08, 0x8E);
 
     load_idt(&idt_ptr);
+
+    console_writedone();
 }
 
 static void idt_set_gate(uint8_t num, uint32_t base, uint16_t sel, uint8_t flags)

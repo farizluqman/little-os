@@ -9,7 +9,7 @@
 #include "modules/vga/console.h"
 #include "stdlib/common.h"
 #include "modules/multiboot/multiboot.h"
-#include "modules/memory/malloc.h"
+//#include "modules/memory/malloc.h"
 
 #include "modules/pic/pic.c"
 #include "modules/desc_tables/gdt.c"
@@ -20,7 +20,12 @@
 #include "modules/syscall/syscall.c"
 #include "modules/portio/port.c"
 #include "modules/time/pit.c"
-#include "modules/memory/malloc.c"
+
+#include "modules/memory/kheap.c"
+#include "modules/memory/paging.c"
+#include "modules/memory/kmalloc_early.c"
+//#include "modules/memory/malloc.c"
+#include "modules/memory/frame.c"
 
 // Include standard libraries
 #include "stdlib/common.c"
@@ -49,54 +54,55 @@ extern uint32_t kernel_end;
 extern uint32_t kernel_base;
 
 // function declarations
-void kernel_main(struct multiboot_info *mi, unsigned int magic);
+void kernel_main(struct multiboot_info *mbt, unsigned int magic);
 //size_t strlen(const char *str);
-
-typedef struct multiboot_memory_map {
-	unsigned int size;
-	unsigned int base_addr_low,base_addr_high;
-// You can also use: unsigned long long int base_addr; if supported.
-	unsigned int length_low,length_high;
-// You can also use: unsigned long long int length; if supported.
-	unsigned int type;
-} multiboot_memory_map_t;
 
 // kernel entry point
 void kernel_main(struct multiboot_info *mbt, unsigned int magic) {
+
+		uint32_t low_pages = 256; // 1024 * 1024 bytes / 4096
+		uint32_t high_pages = (mbt->mem_upper * 1024) / 4096;
+
+		uint32_t total_frames = high_pages + low_pages;
+
+
     // Initialize terminal interface
     console_initialize();
 
     if (magic == MULTIBOOT_MAGIC_NUMBER)
-  		printf("magic number match. %x\n", magic);
+  		printf("Magic number match. %x\n", magic);
   	else {
-  		printf("magic number fail. expected: %x got: %x\n", MULTIBOOT_MAGIC_NUMBER, magic);
-  		printf("memory management is unavailable. Did you boot from grub?\n");
+  		printf("Magic number fail. expected: %x got: %x\n", MULTIBOOT_MAGIC_NUMBER, magic);
+  		printf("Memory management is unavailable. Did you boot from grub?\n");
   		return;
   	}
 
     printf("Kernel base is %x, end is %x\n", &kernel_base, &kernel_end);
 
-    console_writestring("\n");
-
-    mm_init(&kernel_end);
+    //mm_init(&kernel_end);
 
     // Initialize the GDT
-    console_writestring("Initializing GDT...\n");
+    console_writestring("[GDT] Initializing GDT... ");
     init_gdt();
 
     // Remap the PIC so when we start the interrupter our machine will not
     // go KABOOM!
-    console_writestring("Remapping PIC...\n");
+    console_writestring("[PIC] Remapping PIC... ");
     remap_pic();
 
-    console_writestring("Initializing IDT...\n");
+    console_writestring("[IDT] Initializing IDT... ");
     init_idt();
 
-    console_writestring("Initializing PIT...\n");
-    init_timer(100); // 50 hz
+    console_writestring("[PIT] Initializing PIT... ");
+
+    init_timer(100); // 100 MHz
+
+		//mm_init(&kernel_end);
+		initialize_paging(total_frames, 0x0010DE98, 1280 * 720 * 4);
+		malloc_stats();
 
     //console_movecursor(0, 0);
-    console_writestring("Initializing I/O peripherals...\n");
+    console_writestring("Initializing I/O peripherals... ");
     initialize_keyboard(); // will soon be more than keyboard
 
     init_tty();

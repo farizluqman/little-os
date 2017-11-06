@@ -120,13 +120,32 @@ void console_putentryat(char c, uint8_t color, size_t i, size_t j) {
     console_buffer[index(i, j)] = make_vgaentry(c, color);
 }
 
-void console_putstringat(const char *data, uint8_t color, size_t i, size_t j) {
+void console_writewithcolor(const char *data, uint8_t color) {
   while (*data) {
-    if(j > 80){
-      j = 1;
-      i++;
+    if(console_column > 80){
+      console_column = 1;
+      console_row++;
     }
-    console_putentryat(*data++, color, i, j++);
+    console_putentryat(*data++, color, console_row, console_column++);
+  }
+}
+
+void console_writewithcolorat(const char *data, uint8_t color, size_t row, size_t column) {
+
+  if(row == -1){
+    row = console_row;
+  }
+
+  if(column == -1){
+    column = console_column;
+  }
+
+  while (*data) {
+    if(column > 80){
+      column = 1;
+      row++;
+    }
+    console_putentryat(*data++, color, row, column++);
   }
 }
 
@@ -170,10 +189,22 @@ void update_cursor(int x, int y)
 
 static void clear_screen()
 {
-    console_initialize();
+  console_initialize();
 }
 
 static console_set_status(char *status)
 {
 
+}
+
+void console_writedone()
+{
+  console_writewithcolorat("[  Done  ]", COLOR_GREEN, -1, 68);
+  console_writestring("\n");
+}
+
+void console_writefail()
+{
+  console_writewithcolorat("[  FAIL  ]", COLOR_RED, -1, 68);
+  console_writestring("\n");
 }

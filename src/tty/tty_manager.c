@@ -44,6 +44,29 @@ void check_tty()
   int found = 0;
   int clear = 0; // if requested to clear screen
 
+  // if (strcmp(buffer_str, "cool") == 0) {
+  //   found = 1;
+  //   //console_writestring("Allocating 1024 bytes... \n");
+  //
+  //   // char* mem = malloc(1024);
+  //   //
+  //   // // mem = "this is a test... wheeee.. wow.. yoooo";
+  //   // // append_string(mem, "Mem besar");
+  //   //
+  //   // for(int i = 0; i < 2048; i++){
+  //   //   append_string(mem, itoa(i));
+  //   // }
+  //
+  //   //printf("%s \n", mem);
+  //   //
+  //   // console_writestring("\nCheck memory stat... \n");
+  //   // mm_print_out();
+  //   // console_writestring("Freeing the memory... \n");
+  //   // free(mem);
+  //   // console_writestring("\nCheck memory stat... \n");
+  //   // mm_print_out();
+  // }
+
   if (strcmp(buffer_str, "clear") == 0) {
     found = 1;
     clear = 1;
@@ -57,37 +80,21 @@ void check_tty()
 
   if (strcmp(buffer_str, "malloc") == 0) {
     found = 1;
-    console_writestring("Allocating 1024 bytes... \n");
-    malloc(1024);
-  }
-
-  if (strcmp(buffer_str, "test") == 0) {
-    found = 1;
-    console_writestring("Allocating 1024 bytes... \n");
-    char* mem = malloc(1024);
-    console_writestring("\nCheck memory stat... \n");
-    mm_print_out();
-    console_writestring("Freeing the memory... \n");
-    free(mem);
-    console_writestring("\nCheck memory stat... \n");
-    mm_print_out();
+    console_writestring("Allocating 1024 bytes...\n");
+    //malloc(1024);
   }
 
   if (strcmp(buffer_str, "memory") == 0 || strcmp(buffer_str, "mem") == 0) {
     found = 1;
-    mm_print_out();
+    malloc_stats();
     //pit_wait(5);
-  }
-
-  if (strcmp(buffer_str, "crash") == 0) {
-    found = 1;
-    console_writestring("Allocating more bytes than what you have... DON'T DO IT DAVE!!!!... \n");
-    malloc(33554432);
   }
 
   if (strcmp(buffer_str, "__dev") == 0) {
     found = 1;
     printf("This is a dev %d ", 10);
+    console_writedone();
+    console_writefail();
   }
 
   if (strcmp(buffer_str, "reboot") == 0) {
@@ -129,6 +136,6 @@ void refresh_tty(char c)
     default:
       console_putchar(c);
       left++;
-      append(buffer_str, c);
+      append_char(buffer_str, c);
   }
 }

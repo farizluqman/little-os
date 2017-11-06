@@ -2,28 +2,6 @@
 
 extern void halt();
 
-void *memset(void *p, int c, size_t count)
-{
-    for(unsigned int i = 0; i < count; i++)
-    {
-        ((char *)p)[i] = c;
-    }
-    return p;
-}
-
-// void *memcpy(void *dest, const void *src, size_t n) {
-//
-//     char *cdest = dest;
-//     const char *csrc = src;
-//
-//     size_t i;
-//     for(i = 0; i < n; i++) {
-//         cdest[i] = csrc[i];
-//     }
-//
-//     return dest;
-// }
-
 int k_toupper(int c) {
     if(c >= 97 && c <= 122) {
         return c - 32;
@@ -35,37 +13,6 @@ int k_tolower(int c) {
         return c + 32;
     }
     return c;
-}
-
-char * itos(uint32_t myint, char buffer[], int bufflen)
-{
-    int i = bufflen - 2;
-    buffer[bufflen-1] = 0;
-
-    if(myint == 0) {
-        buffer[i--] = '0';
-    }
-
-    while(myint > 0 && i >= 0)
-    {
-        buffer[i--] = (myint % 10) + '0';
-        myint/=10;
-    }
-
-    return &buffer[i+1];
-}
-
-int strcmp(const char *s1, const char *s2) {
-    while(*s1 && *s2) {
-        if(*s1 != *s2) {
-            return s1 - s2;
-        }
-        s1++;
-        s2++;
-    }
-    if(*s1) return 1;
-    if(*s2) return -1;
-    return 0;
 }
 
 int coerce_int(char *s, uint32_t *val) {
@@ -119,6 +66,28 @@ uint8_t hex_char(uint8_t byte)
         }
     }
     return 0;
+}
+
+void *memcpy(void *dest, const void *src, size_t n) {
+
+    char *cdest = dest;
+    const char *csrc = src;
+
+    size_t i;
+    for(i = 0; i < n; i++) {
+        cdest[i] = csrc[i];
+    }
+
+    return dest;
+}
+
+void *memset(void *p, int c, size_t count)
+{
+    for(unsigned int i = 0; i < count; i++)
+    {
+        ((char *)p)[i] = c;
+    }
+    return p;
 }
 
 void PANIC(char *err, ...) {

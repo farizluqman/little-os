@@ -35,6 +35,37 @@ int atoi(char *str)
     return res;
 }
 
+char * itos(uint32_t myint, char buffer[], int bufflen)
+{
+    int i = bufflen - 2;
+    buffer[bufflen-1] = 0;
+
+    if(myint == 0) {
+        buffer[i--] = '0';
+    }
+
+    while(myint > 0 && i >= 0)
+    {
+        buffer[i--] = (myint % 10) + '0';
+        myint/=10;
+    }
+
+    return &buffer[i+1];
+}
+
+int strcmp(const char *s1, const char *s2) {
+    while(*s1 && *s2) {
+        if(*s1 != *s2) {
+            return s1 - s2;
+        }
+        s1++;
+        s2++;
+    }
+    if(*s1) return 1;
+    if(*s2) return -1;
+    return 0;
+}
+
 // returns the length of a null terminated string
 size_t strlen(const char *str) {
     size_t len = 0;
@@ -44,7 +75,16 @@ size_t strlen(const char *str) {
     return len;
 }
 
-void append(char* s, char c)
+void append_string(char* s, char* c)
+{
+    int len = strlen(s);
+    for(int i = 0; i < strlen(c); i++){
+      s[len++] = c[i];
+    }
+    s[len] = '\0';
+}
+
+void append_char(char* s, char c)
 {
     int len = strlen(s);
     s[len] = c;

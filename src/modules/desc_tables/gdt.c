@@ -59,8 +59,11 @@ void init_gdt()
     gdt_set_gate(3, 0, 0xFFFFFFFF, 0xFA, 0xCF); //User mode code segment
     gdt_set_gate(4, 0, 0xFFFFFFFF, 0xF2, 0xCF); //User mode data segment
 
-    //terminal_writestring("Flushing GDT.\n");
+    //console_writestring("[GDT] Flushing GDT... ");
     load_gdt(&gdt_ptr);
+
+    console_writedone();
+
 }
 
 static void gdt_set_gate(int32_t entry, uint32_t base, uint32_t limit, uint8_t access, uint8_t gran)

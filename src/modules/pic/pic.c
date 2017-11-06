@@ -44,4 +44,7 @@ void remap_pic(void)
 
     outb(MASTER_DATA, 0x0);
     outb(SLAVE_DATA, 0x0);
+
+    console_writedone();
+
 }

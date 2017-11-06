@@ -9,6 +9,10 @@ clean :
 	# Deleting all build files
 	rm -rf build/kernel build/*.o build/*.img
 
+autorun :
+	chmod +x autorun.sh
+	./autorun.sh
+
 emulate :
 	# Run with QEMU
 	qemu-system-i386 build/disk.img

@@ -146,3 +146,25 @@ char* malloc(size_t size)
 	printf("Allocated %d bytes from 0x%x to 0x%x\n", size, ret, last_alloc);
 	return ret;*/
 }
+
+void *memcpy(void *dest, const void *src, size_t n) {
+
+    char *cdest = dest;
+    const char *csrc = src;
+
+    size_t i;
+    for(i = 0; i < n; i++) {
+        cdest[i] = csrc[i];
+    }
+
+    return dest;
+}
+
+void *memset(void *p, int c, size_t count)
+{
+    for(unsigned int i = 0; i < count; i++)
+    {
+        ((char *)p)[i] = c;
+    }
+    return p;
+}

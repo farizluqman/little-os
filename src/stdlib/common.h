@@ -4,6 +4,9 @@
 #include <stddef.h>
 #include <stdint.h>
 
+void *memcpy(void *dest, const void *src, size_t n);
+void *memset(void *p, int c, size_t count);
+
 void *memset(void *p, int c, size_t count);
 // void *memcpy(void *dest, const void *src, size_t n);
 extern void fastcp(char *dest, char *src, uint32_t count);
