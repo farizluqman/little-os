@@ -60,8 +60,8 @@ void alloc_frame(struct page *page, int is_kernel, int is_writeable)
         end_of_mem++;
     }
     page->present = 1;                  // Mark it as present.
-    page->rw      = (is_writeable)?1:0; // Should the page be writeable?
-    page->user    = (is_kernel)?0:1;    // Should the page be user-mode?
+    page->rw      = (is_writeable) ? 1 : 0; // Should the page be writeable?
+    page->user    = (is_kernel) ? 0 : 1;    // Should the page be user-mode?
     page->frame   = idx;
 }
 
@@ -73,7 +73,7 @@ void free_frame(struct page *page)
     {
         // This should never happen because we're allocating
         // the full stack during initialization.
-        PANIC("Frame pool is full! Something weird happened!");
+        PANIC("Frame pool is full! This should never happen because we're allocating the full stack during initialization.");
     }
 
     free_frames[top_of_stack] = page->frame;

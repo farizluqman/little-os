@@ -1,10 +1,14 @@
 # /bin/bash
-BUILD_DIR="build"
+BUILD_DIR="."
 MOUNT_DIR="/mnt/out0"
 BOOTLOADER_DIR="src/boot"
 
 DISK_NAME="disk.img"
 DISK_IMG_SIZE="100MB"
+
+if [ -f "disk.img" ] ; then
+    sudo rm -rf "disk.img"
+fi
 
 echo "$(tput setaf 3)Creating a 100MB disk image... $(tput sgr0)"
 # create a 100 MB disk image
@@ -13,7 +17,7 @@ dd if=/dev/zero of=${BUILD_DIR}/${DISK_NAME} seek=${DISK_IMG_SIZE} count=1k bs=1
 echo "$(tput setaf 3)Setting up loop device... $(tput sgr0)"
 
 # setup loopback device and reserve it for this process
-outlo=`sudo losetup -f --show build/disk.img`
+outlo=`sudo losetup -f --show ${BUILD_DIR}/${DISK_NAME}`
 
 echo "$(tput setaf 3)We are using '${outlo}' as our loop device now $(tput sgr0)"
 
@@ -51,7 +55,7 @@ sudo grub-install --boot-directory=${MOUNT_DIR}/boot/ --modules="ext2 part_msdos
 
 echo "$(tput setaf 3)Copying kernel to the disk $(tput sgr0)"
 
-cp build/kernel ${MOUNT_DIR}/boot/kernel-701
+cp kernel.bin ${MOUNT_DIR}/boot/kernel-701
 
 echo "$(tput setaf 3)Sleeping for 2 seconds... $(tput sgr0)"
 

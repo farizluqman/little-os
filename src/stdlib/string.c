@@ -1,3 +1,6 @@
+#include <stdint.h>
+#include <stddef.h>
+
 char* itoa_f(int i, char b[]){
     char const digit[] = "0123456789";
     char* p = b;

@@ -1,5 +1,7 @@
 #include "modules/vga/console.h"
 
+// !!TODO refractor console.c, only lowest level of access to the console
+
 // constants
 static const size_t VGA_HEIGHT = 25;
 static const size_t VGA_WIDTH = 80;
@@ -187,7 +189,7 @@ void update_cursor(int x, int y)
 	outb(0x3D5, (uint8_t) ((pos >> 8) & 0xFF));
 }
 
-static void clear_screen()
+void clear_screen()
 {
   console_initialize();
 }

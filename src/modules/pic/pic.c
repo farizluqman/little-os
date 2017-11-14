@@ -1,4 +1,5 @@
 #include "modules/pic/pic.h"
+#include "modules/vga/console.h"
 #include "modules/portio/port.h"
 
 #define MASTER_COMMAND 0x20
@@ -34,7 +35,7 @@ void remap_pic(void)
 
     outb(MASTER_COMMAND, ICW1_INIT | ICW1_ICW4); // Start initialization sequence
     outb(SLAVE_COMMAND, ICW1_INIT | ICW1_ICW4);  // Start initialization sequence
-    outb(MASTER_DATA, 0x20);                     // Remap to 0x20
+    outb(MASTER_DATA, 0x20);                     // Remap master to 0x20
     outb(SLAVE_DATA, 0x28);                      // Remap slave to 0x28
     outb(MASTER_DATA, 4);                        // Tell Master about slave @ IRQ 2
     outb(SLAVE_DATA, 2);                         // Tell slave PIC its cascade ID

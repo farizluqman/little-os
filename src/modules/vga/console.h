@@ -35,6 +35,7 @@ typedef enum vga_color {
 
 // function declarations
 void console_initialize(void);
+void clear_screen();
 void console_writestring(const char *data);
 void console_putnum(int n);
 void console_putchar(char c);

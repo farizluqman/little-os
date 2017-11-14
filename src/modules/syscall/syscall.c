@@ -1,3 +1,5 @@
+#include <stdint.h>
+#include <stddef.h>
 #include "modules/syscall/syscall.h"
 
 void reboot()

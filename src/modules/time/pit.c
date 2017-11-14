@@ -1,6 +1,8 @@
+#include "modules/vga/console.h"
 #include "modules/time/pit.h"
 #include "modules/interrupt/isr.h"
 #include "modules/portio/port.h"
+#include "modules/memory/kheap.h"
 #include "stdlib/stdio.h"
 
 #define PIT_NATURAL_FREQ 1193180
@@ -29,30 +31,33 @@ static uint8_t task_was_on = 0;
 
 void set_task(uint8_t i)
 {
-	if(!task_was_on) return;
-	task = i;
+    if(!task_was_on) return;
+    task = i;
 }
 
 static void timer_callback(registers_t regs)
 {
-  long freq = 100;
-  SYSTEM_TICK++;
-  if(mod(SYSTEM_TICK, freq) == 0){
-    int sec = SYSTEM_TICK / freq;
-    int sec_mod = mod(sec, 60);
-    int min = sec / 60;
+    long freq = 100;
+    SYSTEM_TICK++;
+    if(mod(SYSTEM_TICK, freq) == 0) {
+        int sec = SYSTEM_TICK / freq;
+        int sec_mod = mod(sec, 60);
+        int min = sec / 60;
 
-    char* outstring;
-    sprintf(outstring, "Uptime: %02dm, %02ds", min, sec_mod);
-    console_writewithcolorat(outstring, COLOR_LIGHT_BROWN, 0, 63);
-  }
+        char* outstring = kmalloc(30);
+
+        sprintf(outstring, "Uptime: %02dm, %02ds", min, sec_mod);
+        console_writewithcolorat(outstring, COLOR_LIGHT_BROWN, 0, 63);
+
+        kfree(outstring);
+    }
 }
 
 void init_timer(uint32_t frequency)
 {
     register_interrupt_handler(IRQ0, &timer_callback);
 
-		console_writedone();
+    console_writedone();
 
     //normal_color = make_color(COLOR_WHITE, COLOR_BLACK);
 
@@ -62,13 +67,13 @@ void init_timer(uint32_t frequency)
     else
         divisor = 0;
     /*
-      http://wiki.osdev.org/Programmable_Interval_Timer#I.2FO_Ports
+       http://wiki.osdev.org/Programmable_Interval_Timer#I.2FO_Ports
 
-      Channel  Access Mode        Operating Mode    BCD/Binary
-      0x36 == 0011 0110 == 00       11 (lobyte/hibyte) 011 (square Wave) 0 (16-bit bin
-      )
-    */
-		printf("[PIT] Initializing PIT timer ... ");
+       Channel  Access Mode        Operating Mode    BCD/Binary
+       0x36 == 0011 0110 == 00       11 (lobyte/hibyte) 011 (square Wave) 0 (16-bit bin
+       )
+     */
+    printf("[PIT] Initializing PIT timer ... ");
     outb(PIT_COMMAND, 0x36);
 
     //Chop freq up into bytes and send to data0 port
@@ -78,6 +83,6 @@ void init_timer(uint32_t frequency)
     outb(PIT_DATA0, low);
     outb(PIT_DATA0, high);
 
-		console_writedone();
+    console_writedone();
 
 }

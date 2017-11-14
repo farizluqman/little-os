@@ -13,5 +13,5 @@ MOD_ASM_LINKS=(
 )
 
 MOD_NASM_LINKS=(
-  #'modules/bios/realmode.s'
+  'modules/bios/realmode.s'
 )

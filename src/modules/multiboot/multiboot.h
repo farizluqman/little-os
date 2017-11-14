@@ -1,6 +1,8 @@
 #ifndef MULTIBOOT_H
 #define MULTIBOOT_H
 
+#define MULTIBOOT_MAGIC_NUMBER 0x2BADB002
+
 //! The symbol table for a.out format.
 typedef struct {
     unsigned long tab_size;
@@ -34,13 +36,15 @@ struct multiboot_info
     unsigned long mmap_addr;
 };
 
-typedef struct multiboot_memory_map {
-	unsigned int size;
-	unsigned int base_addr_low,base_addr_high;
-// You can also use: unsigned long long int base_addr; if supported.
-	unsigned int length_low,length_high;
-// You can also use: unsigned long long int length; if supported.
-	unsigned int type;
-} multiboot_memory_map_t;
+struct multiboot_mmap_entry
+{
+  uint32_t size;
+  uint32_t addr;
+  uint32_t len;
+#define MULTIBOOT_MEMORY_AVAILABLE              1
+#define MULTIBOOT_MEMORY_RESERVED               2
+  uint32_t type;
+} __attribute__((packed));
+typedef struct multiboot_mmap_entry multiboot_memory_map_t;
 
 #endif

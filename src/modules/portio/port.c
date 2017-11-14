@@ -1,3 +1,4 @@
+#include "modules/portio/port.h"
 #include "stdlib/types.h"
 
 // ------------------------------------------------------------------------------------------------
@@ -5,37 +6,37 @@
 
 static inline void IoWrite8(uint port, u8 data)
 {
-    __asm__ volatile("outb %b0, %w1" : : "a" (data), "Nd" (port));
+    __asm__ volatile ("outb %b0, %w1" : : "a" (data), "Nd" (port));
 }
 
 static inline u8 IoRead8(uint port)
 {
     u8 data;
-    __asm__ volatile("inb %w1, %b0" : "=a" (data) : "Nd" (port));
+    __asm__ volatile ("inb %w1, %b0" : "=a" (data) : "Nd" (port));
     return data;
 }
 
 static inline void IoWrite16(uint port, u16 data)
 {
-    __asm__ volatile("outw %w0, %w1" : : "a" (data), "Nd" (port));
+    __asm__ volatile ("outw %w0, %w1" : : "a" (data), "Nd" (port));
 }
 
 static inline u16 IoRead16(uint port)
 {
     u16 data;
-    __asm__ volatile("inw %w1, %w0" : "=a" (data) : "Nd" (port));
+    __asm__ volatile ("inw %w1, %w0" : "=a" (data) : "Nd" (port));
     return data;
 }
 
 static inline void IoWrite32(uint port, u32 data)
 {
-    __asm__ volatile("outl %0, %w1" : : "a" (data), "Nd" (port));
+    __asm__ volatile ("outl %0, %w1" : : "a" (data), "Nd" (port));
 }
 
 static inline u32 IoRead32(uint port)
 {
     u32 data;
-    __asm__ volatile("inl %w1, %0" : "=a" (data) : "Nd" (port));
+    __asm__ volatile ("inl %w1, %0" : "=a" (data) : "Nd" (port));
     return data;
 }
 
