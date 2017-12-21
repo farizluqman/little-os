@@ -6,6 +6,7 @@
 #include "modules/vga/console.h"
 #include "modules/memory/kheap.h"
 #include "stdlib/stdio.h"
+#include "tty/calc/calc.h"
 
 static int current_tty;
 
@@ -66,10 +67,17 @@ void process_tty_command()
     }
 
     if (strcmp(buffer_str, "__dev") == 0) {
+
         found = 1;
         printf("This is a dev %d ", 10);
         console_writedone();
         console_writefail();
+        calc_main();
+    }
+
+    if (strcmp(buffer_str, "calc") == 0) {
+      found = 1;
+      calc_main();
     }
 
     if (strcmp(buffer_str, "reboot") == 0) {
